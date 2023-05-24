@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>퍼블 리스트</title>
+	<style type="text/css">
+
+		body,html {font-size:12px;}
+		* {padding:0;margin:0;   box-sizing: border-box; text-decoration: none;}
+		*:after, *:before {box-sizing: border-box;}
+		a {color:#263238;}
+		ul,ol,li {list-style: none;}
+		table { width: 100%; border-spacing: 0; border-collapse: collapse;}
+		em {font-style:normal;}
+
+		.none {display:none !important;}
+
+		.guide-wrap {position: relative;}
+		.guide-wrap header {border-bottom: 1px solid lightgray;padding:20px 30px;display:flex;justify-content:space-between;align-items:center;position:fixed;left:0;top:0;width:100%;background:#fff;z-index:9;}
+		.guide-wrap header hgroup {display:inline-flex;align-items:center;line-height:1;}
+		.guide-wrap header h1 {font-size:18px;}
+		.guide-wrap header h2 {font-size:18px;color:gray;}
+		.guide-wrap header h2:before {content:"";display:inline-block;width:2px;height:20px;background:#CFD8DC;margin:0 15px;}
+		.guide-wrap header nav {font-size:24px;font-weight:500;display:flex;}
+		.guide-wrap header nav a {color:#90A4AE;}
+		.guide-wrap header nav a:hover {text-decoration:underline;}
+		.guide-wrap header nav a + a:before {content:"";display:inline-block;width:2px;height:16px;background:#CFD8DC;margin:0 15px;}
+		.guide-wrap header nav a.on {color:#263238;}
+		.guide-wrap header dl {display:inline-flex;margin-left:30px;margin-top:10px;}
+		.guide-wrap header dd:before {content:":";padding:0 5px;}
+		.guide-wrap header dd + dt {margin-left:20px;}
+
+		.guide-wrap .tab{border-bottom: 1px solid lightgray; background: white;}
+		.guide-wrap .tab {position:fixed;left:0;top:63px;width:100%;z-index:10;padding: 8px 30px;}
+		.guide-wrap .tab nav a {font-size:14px; text-decoration: underline; text-underline-position: under;}
+		.guide-wrap .tab nav a:hover,
+		.guide-wrap .tab nav a:active,
+		.guide-wrap .tab nav a:focus{font-weight: bold; color:dodgerblue;}
+		.guide-wrap .tab nav a + a {margin-left:2px;}
+		.guide-wrap .tab nav + nav {margin-top:2px;}
+
+		.container {padding: 120px 30px 0 30px;}
+
+		.pub-list .list-table  + .list-table {margin-top:25px;}
+		.pub-list .list-table h3 a {position: relative;display: block;padding: 10px;background-color:#f3f3f3;font-size:14px;border-bottom:2px solid #3ab0ab;}
+		.pub-list .list-table h3 a:after {content:"\203A";position:absolute;top:50%;font-size:32px;line-height:1em;margin-top:-0.5em;transform: rotate(-90deg);right:24px;}
+		.pub-list .list-table.close  h3 a:after {transform:rotate(90deg);right:20px;}
+		.pub-list .list-table.close .table {display: none;}
+
+		.list-table thead {background:#ffecb340; align-items:center; border-bottom:solid 1px #b0bec5;}
+		.list-table tbody {border-bottom:solid 1px #ECEFF1;font-size:12px;position:relative;}
+		.list-table tbody tr{border-bottom:1px solid #ECEFF1;}
+		.list-table thead th {padding:5px; border-left:solid 1px #FFECB3; }
+		.list-table tbody td {padding:5px 8px; border-left:solid 1px #ECEFF1; }
+		.list-table tbody td:first-child{border-left: none;}
+		.list-table tbody:hover {background:#f5f5f5;}
+
+		.list-table .no,
+		.list-table .id,
+		.list-table .state,
+		.list-table .date {text-align: center;}
+
+		.list-table .id a {display:inline-block; line-height:1em; padding:5px 10px; border-radius:5px; margin-right:7px; text-decoration: underline; text-underline-position: under;}
+		.list-table .id a:hover, 
+		.list-table .id a:active, 
+		.list-table .id a:focus{ font-weight: bold;}
+
+		.list-table .state:before{content:""; display: inline-block; width: 6px; height: 6px; background: transparent;position: relative; top: -1.4px;}
+		.list-table .state.ing:before {background:sandybrown;}
+		.list-table .state.complete:before {background:yellowgreen;}
+		.list-table .state:after {content:""; background:transparent; color:#000; margin-left:3px; padding:0 3px; border-radius:3px; display:inline-block;}
+		.list-table .state.ing:after {content:"진행";}
+		.list-table .state.complete:after {content:"완료";}
+
+		.list-table .type{text-align: center;}
+		.list-table .type span{border: 1px solid gray; border-radius: 10px; padding: 0 4px;}
+		.list-table .type .page{border-color: yellowgreen;}
+		.list-table .type .full{border-color:tomato;}
+		.list-table .type .toast{border-color:cornflowerblue;}
+		.list-table .type .float{border-color:lightseagreen;}
+		.list-table .type .page:before{content:"page";}
+		.list-table .type .full:before{content:"full";}
+		.list-table .type .toast:before{content:"toast";}
+		.list-table .type .float:before{content:"float";}
+
+		.list-table .comment p:before{content:"-"; margin-right: 4px;}
+
+		.list-table tr.cancel {text-decoration: line-through; background: #eee;}		
+		.list-table tr.cancel .type span{border-color: gray;}
+		.list-table tr.cancel .state:before {background:gray;}
+		.list-table tr.cancel .state:after {content:"삭제"; text-decoration: line-through;}
+		.list-table tr.cancel .id a{text-decoration: line-through;}
+
+
+	</style>
+</head>
+
+<body>
+<div class="guide-wrap">
+
+	<header>
+		<hgroup>
+			<h1>퍼블 리스트</h1>
+			<h2></h2>
+			<dl>
+				<dt>총 페이지</dt>
+				<dd class="page-total"></dd>
+				<dt>완료</dt>
+				<dd class="page-complete"></dd>
+				<dt>진척률</dt>
+				<dd class="page-rate"></dd>
+			</dl>
+		</hgroup>
+		 <nav class="none">
+			<a href="">PC</a>
+			<a href="" class="on">Mobile</a>
+		</nav>
+	</header>
+	<div class="tab">
+		<nav>
+			<a href="#list01">탭1</a>
+			<a href="#list02">탭2</a>
+		</nav>
+	</div>
+
+	<section class="container">
+
+		<!-- list -->
+		<div class="pub-list">
+		
+			<!-- 공통 -->
+			<div class="list-table" id="list01">
+				<h3><a href="#">공통<em></em></a></h3>
+				<table class="table">
+					<colgroup>
+						<col style="width:30px">
+						<col>
+						<col>
+						<col>
+						<col>
+						<col>
+						<col>
+						<col  style="width:120px">
+						<col>
+						<col style="width:80px">
+						<col>
+					</colgroup>
+					<thead class="thead">
+						<tr>
+							<th class="no">No</th>
+							<th>1Depth</th>
+							<th>2Depth</th>
+							<th>3Depth</th>
+							<th>4Depth</th>
+							<th>5Depth</th>
+							<th>6Depth</th>
+							<th>화면ID</th>
+							<th>유형</th>
+							<th>상태</th>
+							<th>비고</th>
+						</tr>
+					</thead>
+					<tbody class="">
+						<tr>
+							<td class="no"></td>
+							<td>공통</td>
+							<td>본인인증</td>
+							<td>방법선택</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td class="id"><a href="COM/COM_001.html">COM_001</a></td>
+							<td class="type"><span class="page"></span></td>
+							<td class="state ing"></td>
+							<td class="comment">
+								<p>230518 공지 팝업용 'notice' class 추가</p>
+							</td>
+						</tr>
+						<tr>
+							<td class="no"></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td>정보입력</td>
+							<td></td>
+							<td></td>
+							<td class="id"><a href="COM/COM_001.html" class="pageview">COM_001</a></td>
+							<td class="type"><span class="full"></span></td>
+							<td class="state ing"></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td class="no"></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td>완료</td>
+							<td></td>
+							<td class="id"><a href="COM/COM_001.html" class="pageview">COM_001</a></td>
+							<td class="type"><span class="float"></span></td>
+							<td class="state complete"></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td class="no"></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td>안내메시지</td>
+							<td class="id"><a href="COM/COM_001.html" class="pageview">COM_001</a></td>
+							<td class="type"><span class="toast"></span></td>
+							<td class="state complete"></td>
+							<td></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<!-- 공통 -->
+			<div class="list-table" id="list02">
+				<h3><a href="#">공통<em></em></a></h3>
+				<table class="table">
+					<colgroup>
+						<col style="width:30px">
+						<col>
+						<col>
+						<col>
+						<col>
+						<col>
+						<col>
+						<col  style="width:120px">
+						<col>
+						<col style="width:80px">
+						<col>
+					</colgroup>
+					<thead class="thead">
+						<tr>
+							<th class="no">No</th>
+							<th>1Depth</th>
+							<th>2Depth</th>
+							<th>3Depth</th>
+							<th>4Depth</th>
+							<th>5Depth</th>
+							<th>6Depth</th>
+							<th>화면ID</th>
+							<th>유형</th>
+							<th>상태</th>
+							<th>비고</th>
+						</tr>
+					</thead>
+					<tbody class="">
+						<tr>
+							<td class="no"></td>
+							<td>공통</td>
+							<td>본인인증</td>
+							<td>방법선택</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td class="id"><a href="COM/COM_001.html">COM_001</a></td>
+							<td class="type"><span class="page"></span></td>
+							<td class="state ing"></td>
+							<td class="comment">
+								<p>230518 공지 팝업용 'notice' class 추가</p>
+							</td>
+						</tr>
+						<tr class="cancel">
+							<td class="no"></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td>정보입력</td>
+							<td></td>
+							<td></td>
+							<td class="id"><a href="COM/COM_001.html" class="pageview">COM_001</a></td>
+							<td class="type"><span class="full"></span></td>
+							<td class="state ing"></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td class="no"></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td>완료</td>
+							<td></td>
+							<td class="id"><a href="COM/COM_001.html" class="pageview">COM_001</a></td>
+							<td class="type"><span class="float"></span></td>
+							<td class="state complete"></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td class="no"></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td>안내메시지</td>
+							<td class="id"><a href="COM/COM_001.html" class="pageview">COM_001</a></td>
+							<td class="type"><span class="toast"></span></td>
+							<td class="state complete"></td>
+							<td></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+		</div>
+		<!--// list -->
+
+	</section>
+
+</div>
+
+<script src="js/jquery-3.6.0.min.js"></script>
+<script>
+$(".guide-wrap > header h2").text($(".guide-wrap > header > nav .on").text());
+$('tbody .pageview').attr("target", "_blank");
+
+$('tbody .no').each(function(i) {
+	$(this).text(i+1);
+});
+
+var totalpage = 0;
+var completepage = 0;
+
+$('.list-table').each(function(i) {
+	var blockpage = $(this).find("tbody tr").length;
+	var blockcomplete = $(this).find("tbody .complete").length;
+
+	$(this).find("h3 a > em").text("(" + blockcomplete + " / " + blockpage + ")");
+		totalpage += blockpage;
+		completepage += blockcomplete;
+});
+
+var $accordionBtn = $('.list-table h3 > a');
+		$accordionBtn.on('click', function () {
+			var _this = $(this);
+			var _colum = _this.closest('.list-table');
+			if (_colum.hasClass('close')) _colum.removeClass('close');
+			else _colum.addClass('close');
+			return false;
+		});
+
+$(window).on("scroll",function () {
+	var scrollT = $(window).scrollTop();
+	(scrollT > $("header").height()) ? $(".tab").addClass("fixed") :  $(".tab").removeClass("fixed");
+});
+
+$(window).on("load", function () {
+	$(".page-total").text(totalpage);
+	$(".page-complete").text(completepage);
+	$(".page-rate").text((completepage/totalpage * 100).toFixed(2) + "%");
+});
+
+$(".tab a").on("click", function() {
+	var obj = $(this).attr("href");
+	$("body,html").animate({
+		scrollTop : $(obj).offset().top - 150
+	},500);
+	return false;
+});
+
+var depth_arr = new Array("","","","","","");
+
+$('tbody .path').each(function(i) {
+	var obj = $(this);
+	$(this).find("li").each(function(j) {
+		if ($(this).text()=="") {
+			$(this).text(depth_arr[j]);
+		} else {
+			depth_arr[j] = $(this).text();
+		}
+	});
+});
+</script>
+	
+</body>
+</html>
