@@ -53,7 +53,7 @@
 		.list-table thead th {padding:5px; border-left:solid 1px #FFECB3; }
 		.list-table tbody td {padding:5px 8px; border-left:solid 1px #ECEFF1; }
 		.list-table tbody td:first-child{border-left: none;}
-		.list-table tbody:hover {background:#f5f5f5;}
+		.list-table tbody tr:hover {background:#f5f5f5;}
 
 		.list-table .no,
 		.list-table .id,
@@ -330,7 +330,7 @@ var totalpage = 0;
 var completepage = 0;
 
 $('.list-table').each(function(i) {
-	var blockpage = $(this).find("tbody tr").length;
+	var blockpage = $(this).find("tbody tr:not(.cancel)").length;
 	var blockcomplete = $(this).find("tbody .complete").length;
 
 	$(this).find("h3 a > em").text("(" + blockcomplete + " / " + blockpage + ")");
