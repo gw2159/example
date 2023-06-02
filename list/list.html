@@ -32,11 +32,10 @@
 
 		.guide-wrap .tab{border-bottom: 1px solid lightgray; background: white;}
 		.guide-wrap .tab {position:fixed;left:0;top:63px;width:100%;z-index:10;padding: 8px 30px;}
-		.guide-wrap .tab nav a {font-size:14px; text-decoration: underline; text-underline-position: under;}
+		.guide-wrap .tab nav a {font-size:14px; text-decoration: underline; text-underline-position: under;margin-right:8px;}
 		.guide-wrap .tab nav a:hover,
 		.guide-wrap .tab nav a:active,
 		.guide-wrap .tab nav a:focus{font-weight: bold; color:dodgerblue;}
-		.guide-wrap .tab nav a + a {margin-right:8px;}
 		.guide-wrap .tab nav + nav {margin-top:2px;}
 
 		.container {padding: 120px 30px 0 30px;}
@@ -118,7 +117,6 @@
 	</header>
 	<div class="tab">
 		<nav>
-			<a href="#list01"></a>
 		</nav>
 	</div>
 
@@ -309,6 +307,97 @@
 				</table>
 			</div>
 
+			<!-- 공통3 -->
+			<div class="list-table" id="list03">
+				<h3><a href="#">공통3<em></em></a></h3>
+				<table class="table">
+					<colgroup>
+						<col style="width:40px">
+						<col>
+						<col>
+						<col>
+						<col>
+						<col>
+						<col>
+						<col style="width:120px">
+						<col style="width:80px">
+						<col style="width:80px">
+						<col>
+					</colgroup>
+					<thead class="thead">
+						<tr>
+							<th class="no">No</th>
+							<th>1Depth</th>
+							<th>2Depth</th>
+							<th>3Depth</th>
+							<th>4Depth</th>
+							<th>5Depth</th>
+							<th>6Depth</th>
+							<th>화면ID</th>
+							<th>유형</th>
+							<th>상태</th>
+							<th>비고</th>
+						</tr>
+					</thead>
+					<tbody class="">
+						<tr>
+							<td class="no"></td>
+							<td>공통</td>
+							<td>본인인증</td>
+							<td>방법선택</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td class="id"><a href="COM/COM_001.html">COM_001</a></td>
+							<td class="type"><span class="page"></span></td>
+							<td class="state ing"></td>
+							<td class="comment">
+								<p>230518 공지 팝업용 'notice' class 추가</p>
+							</td>
+						</tr>
+						<tr class="cancel">
+							<td class="no"></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td>정보입력</td>
+							<td></td>
+							<td></td>
+							<td class="id"><a href="COM/COM_001.html" class="pageview">COM_001</a></td>
+							<td class="type"><span class="full"></span></td>
+							<td class="state ing"></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td class="no"></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td>완료</td>
+							<td></td>
+							<td class="id"><a href="COM/COM_001.html" class="pageview">COM_001</a></td>
+							<td class="type"><span class="float"></span></td>
+							<td class="state complete"></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td class="no"></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td>안내메시지</td>
+							<td class="id"><a href="COM/COM_001.html" class="pageview">COM_001</a></td>
+							<td class="type"><span class="toast"></span></td>
+							<td class="state complete"></td>
+							<td></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
 		</div>
 		<!--// list -->
 
@@ -332,7 +421,6 @@ $('.list-table').each(function(i) {
 	var blockpage = $(this).find("tbody tr:not(.cancel)").length;
 	var blockcomplete = $(this).find("tbody .complete").length;
 
-	$(this).find("h3 a > em").text("(" + blockcomplete + " / " + blockpage + ")");
 		totalpage += blockpage;
 		completepage += blockcomplete;
 });
@@ -365,19 +453,6 @@ $(".tab a").on("click", function() {
 	return false;
 });
 
-var depth_arr = new Array("","","","","","");
-
-$('tbody .path').each(function(i) {
-	var obj = $(this);
-	$(this).find("li").each(function(j) {
-		if ($(this).text()=="") {
-			$(this).text(depth_arr[j]);
-		} else {
-			depth_arr[j] = $(this).text();
-		}
-	});
-});
-
 
 // 탭 출력
 $(function(){
@@ -395,7 +470,6 @@ $(function(){
 		});
 		
 		for (var x=0; x<$cntList.length; x++) {
-			
 			textInsert += '<a href="#' + $cntList[x].list + '">' + $cntList[x].title + '</a>';
 		}
 		
