@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>모달팝업</title>
+  <style>
+    * {margin: 0; padding: 0; box-sizing: border-box;}
+    .modal-wrap {position: relative; height: 100vh; width: 100vw;}
+    .modal-pop {display: none; position: absolute; top: 50%; left: 50%; max-height: 100%; width: 400px; height: 400px; padding: 10px; transform: translate(-50%, -50%);
+      border: 1px solid #d71a21; border-radius: 5px; background-color: #fff; overflow: hidden;}
+    .modal-pop.float{height: 400px;  max-width: calc(100% - 40px); }
+    .modal-pop.full{height: 100%;  max-width: 100%; }
+    .modal-pop .layer-content{height: 100%; overflow: auto; max-height: calc(100% - 43px);}
+    .modal-pop .pop-close01 {position: absolute; right: 10px; top: 10px;}
+    .modal-wrap .dim{overflow: hidden; z-index: -1; position: fixed; top: 0; left: 0; width: 100%; height: 100%; height: 100vh; background-color: #000; opacity: .6;}
+  </style>
+</head>
+<body>
+  <div class="modal-wrap">
+
+    <a href="#none" data-modal="modal-float">레이어 보기</a>
+    <a href="#none" data-modal="modal-full">레이어 보기</a>
+  
+    <!-- (S) : 모달 팝업 -->
+    <div class="modal-pop float" tabindex="0" data-modal-con="modal-float" data-focus="modal-float" data-focus-prev="btn-close">
+      <h1>레이어 타이틀</h1>
+      <div class="layer-content">
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta, inventore.</p>
+        <p>Lorem ipsum dolor sit amet, Dicta, inventore.</p>
+        <p>Lorem ipsumpisicing elit. Dicta, inventore.</p>
+        <p>
+          Lorem ipsum dolor sit amet, consect elit. Dicta, inventore.
+          Lorem ipsum dolor sit amet, consect elit. Dicta, inventore.
+          Lorem ipsum dolor sit amet, consect elit. Dicta, inventore.
+          Lorem ipsum dolor sit amet, consect elit. Dicta, inventore.
+          Lorem ipsum dolor sit amet, consect elit. Dicta, inventore.
+          Lorem ipsum dolor sit amet, consect elit. Dicta, inventore.
+          Lorem ipsum dolor sit amet, consect elit. Dicta, inventore.
+          Lorem ipsum dolor sit amet, consect elit. Dicta, inventore.
+          Lorem ipsum dolor sit amet, consect elit. Dicta, inventore.
+          Lorem ipsum dolor sit amet, consect elit. Dicta, inventore.
+          Lorem ipsum dolor sit amet, consect elit. Dicta, inventore.
+          Lorem ipsum dolor sit amet, consect elit. Dicta, inventore.
+          Lorem ipsum dolor sit amet, consect elit. Dicta, inventore.
+          Lorem ipsum dolor sit amet, consect elit. Dicta, inventore.
+          Lorem ipsum dolor sit amet, consect elit. Dicta, inventore.
+          Lorem ipsum dolor sit amet, consect elit. Dicta, inventore.
+          Lorem ipsum dolor sit amet, consect elit. Dicta, inventore.
+          Lorem ipsum dolor sit amet, consect elit. Dicta, inventore.
+          Lorem ipsum dolor sit amet, consect elit. Dicta, inventore.
+          Lorem ipsum dolor sit amet, consect elit. Dicta, inventore.
+          Lorem ipsum dolor sit amet, consect elit. Dicta, inventore.
+          Lorem ipsum dolor sit amet, consect elit. Dicta, inventore.
+          Lorem ipsum dolor sit amet, consect elit. Dicta, inventore.
+          Lorem ipsum dolor sit amet, consect elit. Dicta, inventore.
+          Lorem ipsum dolor sit amet, consect elit. Dicta, inventore.
+          Lorem ipsum dolor sit amet, consect elit. Dicta, inventore.
+          Lorem ipsum dolor sit amet, consect elit. Dicta, inventore.
+          Lorem ipsum dolor sit amet, consect elit. Dicta, inventore.
+          Lorem ipsum dolor sit amet, consect elit. Dicta, inventore.
+          Lorem ipsum dolor sit amet, consect elit. Dicta, inventore.
+          Lorem ipsum dolor sit amet, consect elit. Dicta, inventore.
+          Lorem ipsum dolor sit amet, consect elit. Dicta, inventore.
+          Lorem ipsum dolor sit amet, consect elit. Dicta, inventore.
+          Lorem ipsum dolor sit amet, consect elit. Dicta, inventore.
+          Lorem ipsum dolor sit amet, consect elit. Dicta, inventore.
+        </p>
+      </div>
+      <a href="#" class="pop-close01 modal-close" data-focus="btn-close" data-focus-next="modal-type01">닫기</a>
+    </div>
+    <!--// (S) : 모달 팝업 -->
+
+    <!-- (F) : 모달 팝업 -->
+    <div class="modal-pop full" tabindex="0" data-modal-con="modal-full" data-focus="modal-full" data-focus-prev="btn-close">
+      <h1>레이어 타이틀</h1>
+      <div class="layer-content">
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta, inventore.</p>
+        <p>Lorem ipsum dolor sit amet, Dicta, inventore.</p>
+        <p>Lorem ipsumpisicing elit. Dicta, inventore.</p>
+        <p>
+          Lorem ipsum dolor sit amet, consect elit. Dicta, inventore.
+          Lorem ipsum dolor sit amet, consect elit. Dicta, inventore.
+          Lorem ipsum dolor sit amet, consect elit. Dicta, inventore.
+          Lorem ipsum dolor sit amet, consect elit. Dicta, inventore.
+          Lorem ipsum dolor sit amet, consect elit. Dicta, inventore.
+          Lorem ipsum dolor sit amet, consect elit. Dicta, inventore.
+          Lorem ipsum dolor sit amet, consect elit. Dicta, inventore.
+          Lorem ipsum dolor sit amet, consect elit. Dicta, inventore.
+          Lorem ipsum dolor sit amet, consect elit. Dicta, inventore.
+          Lorem ipsum dolor sit amet, consect elit. Dicta, inventore.
+          Lorem ipsum dolor sit amet, consect elit. Dicta, inventore.
+          Lorem ipsum dolor sit amet, consect elit. Dicta, inventore.
+          Lorem ipsum dolor sit amet, consect elit. Dicta, inventore.
+          Lorem ipsum dolor sit amet, consect elit. Dicta, inventore.
+          Lorem ipsum dolor sit amet, consect elit. Dicta, inventore.
+          Lorem ipsum dolor sit amet, consect elit. Dicta, inventore.
+          Lorem ipsum dolor sit amet, consect elit. Dicta, inventore.
+          Lorem ipsum dolor sit amet, consect elit. Dicta, inventore.
+          Lorem ipsum dolor sit amet, consect elit. Dicta, inventore.
+          Lorem ipsum dolor sit amet, consect elit. Dicta, inventore.
+          Lorem ipsum dolor sit amet, consect elit. Dicta, inventore.
+          Lorem ipsum dolor sit amet, consect elit. Dicta, inventore.
+          Lorem ipsum dolor sit amet, consect elit. Dicta, inventore.
+          Lorem ipsum dolor sit amet, consect elit. Dicta, inventore.
+          Lorem ipsum dolor sit amet, consect elit. Dicta, inventore.
+          Lorem ipsum dolor sit amet, consect elit. Dicta, inventore.
+          Lorem ipsum dolor sit amet, consect elit. Dicta, inventore.
+          Lorem ipsum dolor sit amet, consect elit. Dicta, inventore.
+          Lorem ipsum dolor sit amet, consect elit. Dicta, inventore.
+          Lorem ipsum dolor sit amet, consect elit. Dicta, inventore.
+          Lorem ipsum dolor sit amet, consect elit. Dicta, inventore.
+          Lorem ipsum dolor sit amet, consect elit. Dicta, inventore.
+          Lorem ipsum dolor sit amet, consect elit. Dicta, inventore.
+          Lorem ipsum dolor sit amet, consect elit. Dicta, inventore.
+          Lorem ipsum dolor sit amet, consect elit. Dicta, inventore.
+        </p>
+      </div>
+      <a href="#" class="pop-close01 modal-close" data-focus="btn-close" data-focus-next="modal-type01">닫기</a>
+    </div>
+    <!--// (F) : 모달 팝업 -->
+
+  </div>
+  <script src="../js/jquery-3.6.0.min.js"></script>
+  <script>
+    function accessibilityFocus() {
+  
+      $(document).on('keydown', '[data-focus-prev], [data-focus-next]', function(e){
+        var next = $(e.target).attr('data-focus-next'),
+            prev = $(e.target).attr('data-focus-prev'),
+            target = next || prev || false;
+        
+        if(!target || e.keyCode != 9) {
+          return;
+        }
+        
+        if( (!e.shiftKey && !!next) || (e.shiftKey && !!prev) ) {
+          setTimeout(function(){
+            $('[data-focus="' + target + '"]').focus();
+          }, 1);
+        }
+        
+      });
+      
+    }
+
+    function modalOpen() {
+      var openBtn = '[data-modal]',
+          closeBtn = '.modal-close';
+      
+      function getTarget(t) {
+        return $(t).attr('data-modal');
+      }
+      
+      function open(t) {
+        var showTarget = $('[data-modal-con="' + t + '"]');
+        showTarget.show().focus();
+        showTarget.find('.modal-close').data('activeTarget', t);
+      }
+      
+      function close(t) {
+        var activeTarget = $('[data-modal-con="' + t + '"]');
+        activeTarget.hide();
+        $('[data-modal="' + t + '"]').focus();
+      }
+      
+      $(document).on('click', openBtn, function(e){
+          e.preventDefault();
+          open(getTarget(e.target));
+          dim();
+        }).on('click', closeBtn, function(e) {
+          e.preventDefault();
+          close($(this).data('activeTarget'));
+          $('.modal-wrap').find('.dim').remove();
+        })
+
+      // dim 생성
+      function dim() {
+        var target_first;
+        if ($('.modal-wrap').find('.dim').length == 0) {
+          target_first = $('.modal-wrap').prepend('<div class="dim"></div>');
+        } else {
+          target_first = $('.modal-wrap').find('.target_first');
+        }
+      }
+
+    }
+
+    $(document).ready(function(){
+      
+      modalOpen();
+      accessibilityFocus();
+
+    });
+  </script>
+</body>
+</html>
