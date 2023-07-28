@@ -13,7 +13,7 @@
     .modal-pop.full{height: 100%;  max-width: 100%; }
     .modal-pop .layer-content{height: 100%; overflow: auto; max-height: calc(100% - 43px);}
     .modal-pop .pop-close01 {position: absolute; right: 10px; top: 10px;}
-    .modal-wrap .dim{overflow: hidden; z-index: -1; position: fixed; top: 0; left: 0; width: 100%; height: 100%; height: 100vh; background-color: #000; opacity: .6;}
+    .dim{overflow: hidden; z-index: -1; position: fixed; top: 0; left: 0; width: 100%; height: 100%; height: 100vh; background-color: #000; opacity: .6;}
   </style>
 </head>
 <body>
@@ -121,7 +121,7 @@
     <!--// (F) : 모달 팝업 -->
 
   </div>
-  <script src="../js/jquery-3.6.0.min.js"></script>
+  <script src="./js/jquery-3.6.0.min.js"></script>
   <script>
     function accessibilityFocus() {
   
@@ -171,16 +171,24 @@
         }).on('click', closeBtn, function(e) {
           e.preventDefault();
           close($(this).data('activeTarget'));
-          $('.modal-wrap').find('.dim').remove();
+         dimClose();
         })
 
       // dim 생성
       function dim() {
         var target_first;
-        if ($('.modal-wrap').find('.dim').length == 0) {
-          target_first = $('.modal-wrap').prepend('<div class="dim"></div>');
+        if ($('body').find('.dim').length == 0) {
+          target_first = $('body').append('<div class="dim"></div>');
         } else {
           target_first = $('.modal-wrap').find('.target_first');
+        }
+      }
+
+      function dimClose() {
+        if ($('body').find('.dim').length == 0) {
+          $('.dim').remove();
+        } else {
+
         }
       }
 
